@@ -4,17 +4,18 @@
   <head>
     <meta charset="utf-8">
     <title>Distribution des electeurs</title>
-    <script src="static/js/d3.v3.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/d3.v3.min.js') }}"></script>    
     <link rel="stylesheet" type="text/css"
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
-    <link rel="stylesheet" type="text/css" href="./static/css/electeurs.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/electeurs.css"/>
     
   </head>
+  <body>
   <h1> </h1>
   <h2> Distribution des electeurs par BV (Madagascar):
 
   </h2>
-  <body>
+
     <div id="main">
       <div id="sequence"></div>
       <div id="chart" >
@@ -23,20 +24,30 @@
           des electeurs dans cette region
         </div>
       </div>
-      <div id="vis" style="visibility: visible;"></div>
+      <div id="vis" style="visibility: visible;">
+      </div>
 
 <!--    <div> -->
 <!--    <iframe src="template/avana/index.html" id="main" height="730" width="1090" scrolling="no" style="border:0;height:730px;"></iframe></div>-->
 <!--    </div>-->
       
     </div>
-
-    <script type="text/javascript" src="./static/js/myscript.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/myscript.js') }}"></script>
+<!--    <script type="text/javascript" src="static/js/myscript.js"></script>-->
     <script type="text/javascript">
       // Hack to make this example display correctly in an iframe on bl.ocks.org
       d3.select(self.frameElement).style("height", "700px");
-  </script> 
+    </script> 
  
+
   </body>
+
+  <footer>
+    <p>.</p>
+    <p>Posted by: Andry Rajoelimanana</p>
+    <p>Contact information: <a href="mailto:AndryRajoelimanana@gmail.com">AndryRajoelimanana@gmail.com</a>.</p>
+  </footer>
+
+  
 </html>
 

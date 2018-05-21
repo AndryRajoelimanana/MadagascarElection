@@ -80,7 +80,7 @@ var visa = d3.select("#chart1").append("svg:svg")
     .attr("transform", "translate(" + (2*width/3) / 2 + "," + height / 2 + ")");
 
 
-d3.json("results.json", function(err,data) {
+d3.json("static/js/results.json", function(err,data) {
     createVisualization(data, vis);
     // createVisualization(data, visa);    
     mouseover(nodes[12]);
@@ -169,8 +169,8 @@ function mouseover(d) {
     } else{
         idnum = create_idnum(d.name);    
         d3.select("path[id="+idnum+"]")
-            .style("fill", "blue")
-            .style("opacity", 2)
+            .style("fill", "cornflowerblue")
+            .style("opacity", 6)
             .attr("stroke", "#a9a9a9");
     }  
 }
@@ -201,6 +201,10 @@ function mouseleave(d) {
     d3.selectAll(".classregion").style("fill", function(d){return color(d.properties.inscrits)});
 
     mouseover(nodes[12]);
+// Fade all the segments.
+    vis.selectAll("path")
+      .style("opacity", 1.0);
+
 
 }
 
@@ -293,7 +297,7 @@ var w = 300;
 var h = 500;
 
 var color = d3.scale.linear()
-             .domain([95859,1577740])
+             .domain([55859,5577740])
              .range(['beige', 'red']);
 
 //Define map projection
@@ -323,7 +327,8 @@ var region = vis1.append("svg:g");
 
 var district = vis1.append("svg:g")
                .style("visibility", "hidden")
-               .style("fill","blue");
+               .style("fill","cornflowerblue")
+               .style("opacity",6.0);
 
 
 //Create SVG element
@@ -339,17 +344,18 @@ var region1 = vis2.append("svg:g");
 
 var district1 = vis2.append("svg:g")
                .style("visibility", "hidden")
-               .style("fill","blue");
+               .style("fill","cornflowerblue")
+               .style("opacity",6.0);
 
 
 // Load in my states data!
-d3.csv("out_inscrits.csv", function(data){
-    d3.json("madagascar_region1.json", function(json1) {
+d3.csv("static/js/out_inscrits.csv", function(data){
+    d3.json("static/js/madagascar_region1.json", function(json1) {
         create_maps(data, json1, region);                    
     });
 });
 
-d3.json("madagascar_district1.json", function(json2) {            
+d3.json("static/js/madagascar_district1.json", function(json2) {            
     create_maps1(json2, district);     
 });
 
@@ -391,6 +397,7 @@ function create_maps(data, json1, svgin){
        //.attr("class", "classregion")
        .style("fill", function(d) {return color(d.properties.inscrits)})
        .attr("stroke", "#a9a9a9")
+       .style("opacity", 1.0)
        .on('mouseover', mouseover1);
 
      d3.select("#container1").on("mouseleave", mouseout1);
@@ -422,7 +429,7 @@ function create_maps1(json2, svgin){
 
 function create_district(d){
     var iddist = create_idnum(d.properties.DISTRICT);
-    // console.log(iddist);
+    console.log(iddist);
     if (['antananarivoi', 'antananarivoii', 'antananarivoiii', 'antananarivoiv', 'antananarivov', 'antananarivovi'].indexOf(iddist) > -1){
         return "distantananarivorenivohitra";
     } else {
@@ -432,8 +439,8 @@ function create_district(d){
 
 function create_district1(d){
     var iddist = create_idnum(d);
-    iddist.replace('sud','atsimo');
-    iddist.replace('nord','avaratra');
+    iddist = iddist.replace('sud','atsimo');
+    iddist = iddist.replace('nord','avaratra');
     if (['antananarivoi', 'antananarivoii', 'antananarivoiii', 'antananarivoiv', 'antananarivov', 'antananarivovi'].indexOf(iddist) > -1){
         return "distantananarivorenivohitra";
     }
@@ -454,6 +461,12 @@ function create_district1(d){
     } 
     if (iddist === 'ankazoabosud'){
         return "distankazoabo";
+    }
+//    if (iddist === 'amboasarysud'){
+//        return "distamboasaryatsimo";
+//    }    
+    if (iddist === 'taolanaro') {
+        return "disttaolagnaro";
     }    
     else {
         return "dist"+iddist;    
@@ -468,7 +481,7 @@ function mouseover1(d){
   region.selectAll("path").style("opacity", 0.8)
     .style("fill", function(d){return color(d.properties.inscrits)});
 
-  d3.select(this).style('fill', 'blue').style("opacity", 2.0);
+  d3.select(this).style('fill', "cornflowerblue").style("opacity", 3.0);
   
   for (var i = 0; i < nodes.length; i++) {
     if (create_idnum(nodes[i].name) == create_idnum(d.properties.REGION)){
